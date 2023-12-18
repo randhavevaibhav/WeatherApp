@@ -80,7 +80,7 @@ const search = async ()=>{
       let config = {
         method: 'post',
         maxBodyLength: Infinity,
-        url: 'https://weatherapibackend.onrender.com/getWeather',
+        url: 'https://weather-app-backend-five.vercel.app/getWeather',
         headers: { 
           'Content-Type': 'application/json'
         },
