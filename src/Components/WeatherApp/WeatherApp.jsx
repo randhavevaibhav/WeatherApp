@@ -80,7 +80,7 @@ const search = async ()=>{
       let config = {
         method: 'post',
         maxBodyLength: Infinity,
-        url: 'http://localhost:3500/getWeather',
+        url: 'https://weatherapibackend.onrender.com/getWeather',
         headers: { 
           'Content-Type': 'application/json'
         },
