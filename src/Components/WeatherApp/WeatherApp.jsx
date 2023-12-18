@@ -10,24 +10,15 @@ import rainIcon from "../Assets/rain.png";
 import snowIcon from "../Assets/snow.png";
 import windIcon from "../Assets/wind.png";
 import { useState } from "react";
-
+import axios from "axios";
 
 
 const WeatherApp = ()=>{
 
-let API_KEY = "b4f0c70dee874788e416cac89dc56d4b";
 const [weatherIcon, setWeatherIcon] = useState(cloudIcon);
 
-const search = async ()=>{
-    const element = document.getElementsByClassName("cityInput");
-    if(element[0].value==="")
-    {
-        return 0;
-    }
-    let url =`https://api.openweathermap.org/data/2.5/weather?q=${element[0].value}&units=Metric&appid=${API_KEY}`;
 
-    let response = await fetch(url);
-    let data = await response.json();
+const setDispalyData= (data)=>{
     const humidity = document.getElementsByClassName("humidity-percent");
     const wind = document.getElementsByClassName("wind-rate");
     const temp = document.getElementsByClassName("weather-temp");
@@ -70,6 +61,45 @@ const search = async ()=>{
     {
         setWeatherIcon(clearIcon);
     }
+
+}
+
+
+const search = async ()=>{
+    const element = document.getElementsByClassName("cityInput");
+   
+    if(element[0].value==="")
+    {
+        return 0;
+    }
+
+    let city = JSON.stringify({
+        "city": element[0].value
+      });
+      
+      let config = {
+        method: 'post',
+        maxBodyLength: Infinity,
+        url: 'http://localhost:3500/getWeather',
+        headers: { 
+          'Content-Type': 'application/json'
+        },
+        data : city
+      };
+      
+      axios.request(config)
+      .then((response) => {
+        
+        setDispalyData(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  
+     
+
+     
+   
  }
 return(
 <div className="container">
